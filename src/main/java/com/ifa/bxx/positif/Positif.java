@@ -5,6 +5,9 @@
  */
 package com.ifa.bxx.positif;
 
+import com.ifa.bxx.positif.dao.ClientDao;
+import com.ifa.bxx.positif.dao.JpaUtil;
+
 /**
  *
  * @author cthomasset
@@ -12,5 +15,15 @@ package com.ifa.bxx.positif;
 public class Positif {
     public static void main (String[] args){
         System.out.println("Hello World");
+
+        JpaUtil.init();
+        JpaUtil.creerEntityManager();
+        JpaUtil.ouvrirTransaction();
+
+        ClientDao.persists(new Client("Bob"));
+        
+        JpaUtil.validerTransaction();
+        JpaUtil.fermerEntityManager();
+        JpaUtil.destroy();
     }
 }
