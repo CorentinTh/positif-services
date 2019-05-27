@@ -5,10 +5,20 @@
  */
 package com.ifa.b03.positif.entities;
 
-/**
- *
- * @author cthomasset
- */
+import javax.persistence.*;
+
+@Entity
 public class Consultation {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
+
+    @ManyToOne
+    private Medium medium;
+
+
+    public String getId() {
+        return id;
+    }
+
 }
