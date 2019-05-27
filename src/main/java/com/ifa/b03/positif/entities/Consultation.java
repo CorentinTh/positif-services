@@ -5,20 +5,10 @@
  */
 package com.ifa.b03.positif.entities;
 
-import javax.persistence.*;
-
 /**
  *
  * @author cthomasset
  */
-@Entity
-public class Client extends Person{
-
-    public Client() {
-    }
-   
-    private String zodiacSign;
-    private String chineseSign;
-    private String color;
-    private String animal;
+public class Consultation {
+    
 }

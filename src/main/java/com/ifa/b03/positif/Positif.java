@@ -20,7 +20,6 @@ public class Positif {
 
         JpaUtil.init();
 
-
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
 
