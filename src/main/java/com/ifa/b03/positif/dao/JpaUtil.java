@@ -1,4 +1,4 @@
-package com.ifa.bxx.positif.dao;
+package com.ifa.b03.positif.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -94,7 +94,7 @@ public class JpaUtil {
      * Créée l'instance courante de Entity Manager (liée à ce Thread).
      * <br><strong>À utiliser uniquement au niveau Service.</strong>
      */
-    public static void creerEntityManager() {
+    public static void createEntityManager() {
         log("Création du contexte de persistance");
         threadLocalEntityManager.set(entityManagerFactory.createEntityManager());
     }
@@ -103,7 +103,7 @@ public class JpaUtil {
      * Ferme l'instance courante de Entity Manager (liée à ce Thread).
      * <br><strong>À utiliser uniquement au niveau Service.</strong>
      */
-    public static void fermerEntityManager() {
+    public static void closeEntityManager() {
         log("Fermeture du contexte de persistance");
         EntityManager em = threadLocalEntityManager.get();
         em.close();
@@ -114,7 +114,7 @@ public class JpaUtil {
      * Démarre une transaction sur l'instance courante de Entity Manager.
      * <br><strong>À utiliser uniquement au niveau Service.</strong>
      */
-    public static void ouvrirTransaction() {
+    public static void openTransaction() {
         log("Ouverture de la transaction (begin)");
         try {
             EntityManager em = threadLocalEntityManager.get();
@@ -131,7 +131,7 @@ public class JpaUtil {
      *
      * @exception RollbackException lorsque le <em>commit</em> n'a pas réussi.
      */
-    public static void validerTransaction() throws RollbackException {
+    public static void validateTransaction() throws RollbackException {
         log("Validation de la transaction (commit)");
         try {
             EntityManager em = threadLocalEntityManager.get();
@@ -148,7 +148,7 @@ public class JpaUtil {
      * aucune opération.
      * <br><strong>À utiliser uniquement au niveau Service.</strong>
      */
-    public static void annulerTransaction() {
+    public static void cancelTransaction() {
         try {
             log("Annulation de la transaction (rollback)");
 
@@ -170,7 +170,7 @@ public class JpaUtil {
      *
      * @return instance de Entity Manager
      */
-    protected static EntityManager obtenirEntityManager() {
+    protected static EntityManager getEntityManager() {
         log("Obtention du contexte de persistance");
         return threadLocalEntityManager.get();
     }
