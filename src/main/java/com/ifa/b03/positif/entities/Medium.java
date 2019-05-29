@@ -42,6 +42,10 @@ public class Medium {
         this.price = price;
     }
 
+    public void addConsultation(Consultation consultation){
+        this.consultations.add(consultation);
+    }
+    
     public String getName() {
         return name;
     }

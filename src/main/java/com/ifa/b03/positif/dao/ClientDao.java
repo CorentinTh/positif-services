@@ -21,5 +21,9 @@ public class ClientDao{
                 .find(Client.class, id);
     }
     
+    public static void persist(Client client){
+        JpaUtil.getEntityManager().persist(client);
+    }
+    
     
 }

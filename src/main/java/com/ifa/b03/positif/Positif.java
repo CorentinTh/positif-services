@@ -22,19 +22,19 @@ public class Positif {
 
         JpaUtil.init();
 
-//        JpaUtil.createEntityManager();
-//        JpaUtil.openTransaction();
-//
-//        Client c = new Client();
-//        c.setFirstname("Bob");  
-//        PersonDao.persist(c);
-//
-//        JpaUtil.validateTransaction();
-//        JpaUtil.closeEntityManager();
-//        
-//        System.out.println(Services.getInfoClient(new Long(1)).getFirstname());
+        JpaUtil.createEntityManager();
+        JpaUtil.openTransaction();
 
-        ServicesInit.insertEmployee();
+        Client c = new Client();
+        c.setFirstname("Bob");  
+        PersonDao.persist(c);
+
+        JpaUtil.validateTransaction();
+        JpaUtil.closeEntityManager();
+        
+        System.out.println(Services.getInfoClient(new Long(1)).getLastname());
+
+       // ServicesInit.insertEmployee();
         
         JpaUtil.destroy();
     }

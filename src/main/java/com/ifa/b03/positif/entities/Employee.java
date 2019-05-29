@@ -6,6 +6,7 @@
 package com.ifa.b03.positif.entities;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -27,7 +28,31 @@ public class Employee extends Person {
         this.experience = experience;
     }
     
+    @OneToMany(mappedBy="employee")
+    private List<Consultation> consultations;
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public VoiceType getVoiceType() {
+        return voiceType;
+    }
+
+    public void setVoiceType(VoiceType voiceType) {
+        this.voiceType = voiceType;
+    }
+
+    public ExperienceType getExperience() {
+        return experience;
+    }
+
+    public void setExperience(ExperienceType experience) {
+        this.experience = experience;
+    }
     
-    
+    public void addConsultation(Consultation consultation){
+        this.consultations.add(consultation);
+    }
     
 }

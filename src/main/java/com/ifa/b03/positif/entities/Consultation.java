@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     
     private String comment;
     
@@ -24,7 +24,7 @@ public class Consultation {
     private Date answeredAt;
     
     @Temporal(TemporalType.DATE)
-    private Date closeAt;
+    private Date closedAt;
 
     @ManyToOne
     private Medium medium;
@@ -33,22 +33,25 @@ public class Consultation {
     @ManyToOne
     private Client client;
     
-    @OneToMany(mappedBy="employee")
-    private List<Consultation> consultations;
+    @OneToMany(mappedBy = "consultation")
+    private List<Prediction> predictions;
 
-    public Consultation(String comment, Date createdAt, Medium medium, Employee employee, Client client, List<Consultation> consultations) {
-        this.comment = comment;
-        this.createdAt = createdAt;
+    public Consultation(Client client, Medium medium, Employee employee) {
+        this.createdAt = new Date();
         this.medium = medium;
         this.employee = employee;
         this.client = client;
-        this.consultations = consultations;
+        
+        client.addConsultation(this);
+        medium.addConsultation(this);
+        employee.addConsultation(this);
+
     }
     
     public Consultation() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -76,12 +79,12 @@ public class Consultation {
         this.answeredAt = answeredAt;
     }
 
-    public Date getCloseAt() {
-        return closeAt;
+    public Date getClosedAt() {
+        return closedAt;
     }
 
-    public void setCloseAt(Date closeAt) {
-        this.closeAt = closeAt;
+    public void setClosedAt(Date closeAt) {
+        this.closedAt = closeAt;
     }
 
     public Medium getMedium() {
@@ -106,14 +109,6 @@ public class Consultation {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public List<Consultation> getConsultations() {
-        return consultations;
-    }
-
-    public void setConsultations(List<Consultation> consultations) {
-        this.consultations = consultations;
     }
 
     

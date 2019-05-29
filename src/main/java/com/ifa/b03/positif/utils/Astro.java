@@ -38,7 +38,7 @@ import org.apache.http.message.BasicNameValuePair;
    <version>4.5.7</version>
 </dependency>
  */
-public class AstroTest {
+public class Astro {
 
     final static String MA_CLE_ASTRO_API = "ASTRO-01-M0lGLURBU0ktQVNUUk8tQjAx";
 
@@ -51,7 +51,7 @@ public class AstroTest {
     /*
      * Constructeur
      */
-    public AstroTest() {
+    public Astro() {
     }
 
     /*
@@ -150,66 +150,66 @@ public class AstroTest {
 
         return responseContainer;
     }
-
-    /*
-     * Méthode de test de l'API
-     */
-    public static void main(String[] args) throws ParseException, IOException {
-
-        if (MA_CLE_ASTRO_API.equals("XXXXXXXX-Moodle-Clé")) {
-            for (int i = 0; i < 100; i++) {
-                System.err.println("[ERREUR] VOUS AVEZ OUBLIÉ DE CHANGER LA CLÉ DE L'API !!!!!");
-            }
-            System.exit(-1);
-        }
-
-        AstroTest astroApi = new AstroTest();
-
-        String prenom = "Raphaël";
-        Date dateNaissance = JSON_DATE_FORMAT.parse("1976-07-10");
-
-        List<String> profil = astroApi.getProfil(prenom, dateNaissance);
-
-        String signeZodiaque = profil.get(0);
-        String signeChinois = profil.get(1);
-        String couleur = profil.get(2);
-        String animal = profil.get(3);
-
-        System.out.println("");
-        System.out.println("~<[ Profil ]>~");
-        System.out.println("[Profil] Signe du Zodiaque: " + signeZodiaque);
-        System.out.println("[Profil] Signe Chinois: " + signeChinois);
-        System.out.println("[Profil] Couleur porte-bonheur: " + couleur);
-        System.out.println("[Profil] Animal-totem: " + animal);
-        System.out.println("");
-
-        // Niveaux entre 1 (mauvais) et 4 (excellent)
-        int niveauAmour = 4;
-        int niveauSante = 1;
-        int niveauTravail = 2;
-
-        List<String> predictions = astroApi.getPredictions(couleur, animal, niveauAmour, niveauSante, niveauTravail);
-
-        System.out.println("");
-        System.out.println("~<[ Prédictions ]>~");
-        System.out.println("[ Amour ] " + predictions.get(0));
-        System.out.println("[ Santé ] " + predictions.get(1));
-        System.out.println("[Travail] " + predictions.get(2));
-        System.out.println("");
-
-        // Niveaux entre 1 (mauvais) et 4 (excellent)
-        niveauAmour = 1;
-        niveauSante = 3;
-        niveauTravail = 4;
-
-        predictions = astroApi.getPredictions(couleur, animal, niveauAmour, niveauSante, niveauTravail);
-
-        System.out.println("");
-        System.out.println("~<[ Prédictions ]>~");
-        System.out.println("[ Amour ] " + predictions.get(0));
-        System.out.println("[ Santé ] " + predictions.get(1));
-        System.out.println("[Travail] " + predictions.get(2));
-        System.out.println("");
-    }
+//
+//    /*
+//     * Méthode de test de l'API
+//     */
+//    public static void main(String[] args) throws ParseException, IOException {
+//
+//        if (MA_CLE_ASTRO_API.equals("XXXXXXXX-Moodle-Clé")) {
+//            for (int i = 0; i < 100; i++) {
+//                System.err.println("[ERREUR] VOUS AVEZ OUBLIÉ DE CHANGER LA CLÉ DE L'API !!!!!");
+//            }
+//            System.exit(-1);
+//        }
+//
+//        AstroTest astroApi = new AstroTest();
+//
+//        String prenom = "Raphaël";
+//        Date dateNaissance = JSON_DATE_FORMAT.parse("1976-07-10");
+//
+//        List<String> profil = astroApi.getProfil(prenom, dateNaissance);
+//
+//        String signeZodiaque = profil.get(0);
+//        String signeChinois = profil.get(1);
+//        String couleur = profil.get(2);
+//        String animal = profil.get(3);
+//
+//        System.out.println("");
+//        System.out.println("~<[ Profil ]>~");
+//        System.out.println("[Profil] Signe du Zodiaque: " + signeZodiaque);
+//        System.out.println("[Profil] Signe Chinois: " + signeChinois);
+//        System.out.println("[Profil] Couleur porte-bonheur: " + couleur);
+//        System.out.println("[Profil] Animal-totem: " + animal);
+//        System.out.println("");
+//
+//        // Niveaux entre 1 (mauvais) et 4 (excellent)
+//        int niveauAmour = 4;
+//        int niveauSante = 1;
+//        int niveauTravail = 2;
+//
+//        List<String> predictions = astroApi.getPredictions(couleur, animal, niveauAmour, niveauSante, niveauTravail);
+//
+//        System.out.println("");
+//        System.out.println("~<[ Prédictions ]>~");
+//        System.out.println("[ Amour ] " + predictions.get(0));
+//        System.out.println("[ Santé ] " + predictions.get(1));
+//        System.out.println("[Travail] " + predictions.get(2));
+//        System.out.println("");
+//
+//        // Niveaux entre 1 (mauvais) et 4 (excellent)
+//        niveauAmour = 1;
+//        niveauSante = 3;
+//        niveauTravail = 4;
+//
+//        predictions = astroApi.getPredictions(couleur, animal, niveauAmour, niveauSante, niveauTravail);
+//
+//        System.out.println("");
+//        System.out.println("~<[ Prédictions ]>~");
+//        System.out.println("[ Amour ] " + predictions.get(0));
+//        System.out.println("[ Santé ] " + predictions.get(1));
+//        System.out.println("[Travail] " + predictions.get(2));
+//        System.out.println("");
+//    }
 
 }
