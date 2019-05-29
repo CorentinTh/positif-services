@@ -13,10 +13,7 @@ import javax.persistence.EntityManager;
  * @author cthomasset
  */
 public class ClientDao{
-    
-    public static void persist(Client client){
-        JpaUtil.getEntityManager().persist(client);
-    }
+   
     
     public static Client getClientById(Long id){
         return (Client) JpaUtil

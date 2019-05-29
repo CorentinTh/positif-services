@@ -8,7 +8,9 @@ package com.ifa.b03.positif;
 import com.ifa.b03.positif.entities.Client;
 import com.ifa.b03.positif.dao.ClientDao;
 import com.ifa.b03.positif.dao.JpaUtil;
+import com.ifa.b03.positif.dao.PersonDao;
 import com.ifa.b03.positif.services.Services;
+import com.ifa.b03.positif.services.ServicesInit;
 
 /**
  *
@@ -20,17 +22,19 @@ public class Positif {
 
         JpaUtil.init();
 
-        JpaUtil.createEntityManager();
-        JpaUtil.openTransaction();
+//        JpaUtil.createEntityManager();
+//        JpaUtil.openTransaction();
+//
+//        Client c = new Client();
+//        c.setFirstname("Bob");  
+//        PersonDao.persist(c);
+//
+//        JpaUtil.validateTransaction();
+//        JpaUtil.closeEntityManager();
+//        
+//        System.out.println(Services.getInfoClient(new Long(1)).getFirstname());
 
-        Client c = new Client();
-        c.setFirstname("Bob");  
-        ClientDao.persist(c);
-
-        JpaUtil.validateTransaction();
-        JpaUtil.closeEntityManager();
-        
-        System.out.println(Services.getInfoClient(new Long(1)).getFirstname());
+        ServicesInit.insertEmployee();
         
         JpaUtil.destroy();
     }

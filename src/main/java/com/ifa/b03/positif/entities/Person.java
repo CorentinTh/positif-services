@@ -33,6 +33,18 @@ public class Person implements Serializable { // /!\ User : mot clé réservé p
         return birthDate;
     }
 
+    public Person(String email, String lastname, String firstname, String gender, String password, Date birthDate) {
+        this.email = email;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.gender = gender;
+        this.password = password;
+        this.birthDate = birthDate;
+    }
+    
+    public Person()
+    { }
+
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }

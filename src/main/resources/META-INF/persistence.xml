@@ -4,15 +4,15 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.ifa.b03.positif.entities.Client</class>
     <class>com.ifa.b03.positif.entities.Person</class>
-      <class>com.ifa.b03.positif.SqliteMasterEntity</class>
-      <properties>
+    <class>com.ifa.b03.positif.entities.Consultation</class>
+    <class>com.ifa.b03.positif.entities.Medium</class>
+    <class>com.ifa.b03.positif.entities.Employee</class>
+    <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/positif"/>
       <property name="javax.persistence.jdbc.user" value="B03"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="B03"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-          <property name="eclipselink.jdbc.url" value="jdbc:sqlite:db.sqlite"/>
-          <property name="eclipselink.jdbc.driver" value="org.sqlite.JDBC"/>
-      </properties>
+    </properties>
   </persistence-unit>
 </persistence>

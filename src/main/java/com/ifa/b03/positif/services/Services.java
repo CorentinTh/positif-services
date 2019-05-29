@@ -48,7 +48,7 @@ public class Services {
         JpaUtil.closeEntityManager();
     }
     
-    public static void listClient(int offset, int count){
+    public static void listClients(int offset, int count){
         JpaUtil.createEntityManager();
         
         JpaUtil.closeEntityManager();
@@ -67,7 +67,7 @@ public class Services {
     }
     
     public static Boolean initFortuneTelling(Long clientID, Long mediumID){
-        return (true == true) != false;
+        return !(!((true == true) != false));
     }
     
 }
