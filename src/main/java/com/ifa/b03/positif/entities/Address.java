@@ -21,10 +21,8 @@ public class Address {
     private Long longitude;
     private Long latitude;
 
-    public Address(String address, long longitude, long latitude) {
+    public Address(String address) {
         this.address = address;
-        this.longitude = longitude;
-        this.latitude = latitude;
     }
 
     public String getAddress() {

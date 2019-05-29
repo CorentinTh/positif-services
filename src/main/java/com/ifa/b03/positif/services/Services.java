@@ -39,6 +39,16 @@ public class Services {
         }
     }
     
+    public static void checkCredentials(String email, String password){
+        JpaUtil.createEntityManager();
+        JpaUtil.openTransaction();
+        
+        // TODO add select user by creds in PersonDao
+        
+        JpaUtil.validateTransaction();
+        JpaUtil.closeEntityManager();
+    }
+    
     public static List<Prediction> generatePredictions(Consultation consultation, int loveLevel, int healthLevel, int workLevel){
         List<Prediction> predictions = new ArrayList<>();
         Astro astro = new Astro();
@@ -75,7 +85,6 @@ public class Services {
             JpaUtil.cancelTransaction();
         }
         
-
         JpaUtil.closeEntityManager();
     }
    

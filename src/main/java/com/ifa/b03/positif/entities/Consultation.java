@@ -36,6 +36,14 @@ public class Consultation {
     @OneToMany(mappedBy = "consultation")
     private List<Prediction> predictions;
 
+    public List<Prediction> getPredictions() {
+        return predictions;
+    }
+
+    public void setPredictions(List<Prediction> predictions) {
+        this.predictions = predictions;
+    }
+
     public Consultation(Client client, Medium medium, Employee employee) {
         this.createdAt = new Date();
         this.medium = medium;
