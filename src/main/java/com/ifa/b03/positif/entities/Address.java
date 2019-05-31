@@ -25,6 +25,9 @@ public class Address {
         this.address = address;
     }
 
+    public Address() {
+    }
+
     public String getAddress() {
         return address;
     }

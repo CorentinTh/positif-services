@@ -57,6 +57,12 @@ public class Prediction {
     public void setContent(String content) {
         this.content = content;
     }
-    
-    
+
+    public Consultation getConsultation() {
+        return consultation;
+    }
+
+    public void setConsultation(Consultation consultation) {
+        this.consultation = consultation;
+    }
 }

@@ -32,9 +32,9 @@ public class Positif {
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
         
-        System.out.println(Services.getInfoClient(new Long(1)).getLastname());
+        System.out.println(Services.getInfoClient(1L).getFirstname());
 
-       // ServicesInit.insertEmployee();
+        ServicesInit.insertEmployee();
         
         JpaUtil.destroy();
     }
