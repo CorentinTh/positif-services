@@ -8,23 +8,23 @@ public class Medium {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String name;
     private TalentType talent;
     private String description;
     private String picturePath;
-    
+
     private VoiceType voiceType;
     private ExperienceType experienceRequired;
-    
+
     private String trainig;
     private String speciality;
     private Integer schoolYear;
-    
+
     private Long price;
-          
-    @OneToMany(mappedBy="medium")
-    private List<Consultation> consultations ;
+
+    @OneToMany(mappedBy = "medium")
+    private List<Consultation> consultations;
 
     public Long getId() {
         return id;
@@ -42,10 +42,10 @@ public class Medium {
         this.price = price;
     }
 
-    public void addConsultation(Consultation consultation){
+    public void addConsultation(Consultation consultation) {
         this.consultations.add(consultation);
     }
-    
+
     public String getName() {
         return name;
     }

@@ -7,6 +7,7 @@ package com.ifa.b03.positif.dao;
 
 import com.ifa.b03.positif.entities.Client;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  *
@@ -24,6 +25,14 @@ public class ClientDao{
     public static void persist(Client client){
         JpaUtil.getEntityManager().persist(client);
     }
-    
-    
+
+
+    public static List<Client> getClients(int pageNumber, int pageSize) {
+        return (List<Client>) JpaUtil
+                .getEntityManager()
+                .createQuery("select c from Client c")
+                .setFirstResult((pageNumber - 1) * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
 }
