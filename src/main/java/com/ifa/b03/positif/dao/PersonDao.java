@@ -33,10 +33,17 @@ public class PersonDao {
     }
 
     public static Person getPersonByID(Long personID) {
-        try{
+        try {
             return JpaUtil.getEntityManager().find(Person.class, personID);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
+    }
+
+    public static boolean isEmailTaken(String email) {
+        return !(((Long) JpaUtil.getEntityManager()
+                .createQuery("select count(p) from Person p where p.email = :email")
+                .setParameter("email", email)
+                .getSingleResult()) == 0);
     }
 }

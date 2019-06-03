@@ -14,29 +14,26 @@ import java.time.Instant;
 import java.util.Date;
 
 /**
- *
  * @author cthomasset
  */
 public class Positif {
-    public static void main (String[] args){
-        System.out.println("Hello World");
+    public static void main(String[] args) {
 
         JpaUtil.init();
+        System.out.println("\n\n\n");
 
-        ServicesInit.insertEmployees();
+        // --------------< Demo
 
+//        Demo.registerClientOk();
+//        Demo.registerClientFailed();
+//        Demo.checkClientProfile();
+//        Demo.checkMediumList();
+//        Demo.getMediumInfo();
+        Demo.createConsultation();
 
-        JpaUtil.createEntityManager();
-        JpaUtil.openTransaction();
+        // --------------> Demo
 
-        System.out.println(PersonDao.getPersonByCred("ct@example.com", "ctsqd"));
-
-        JpaUtil.validateTransaction();
-        JpaUtil.closeEntityManager();
-
-
-
-
+        System.out.println("\n\n\n");
         JpaUtil.destroy();
     }
 }

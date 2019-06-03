@@ -22,7 +22,7 @@ public class EmployeeDao {
             // TODO: tester le "<="
             List<Employee> employees = (List<Employee>) JpaUtil
                     .getEntityManager()
-                    .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience <= :experience order by size(e.consultations)")
+                    .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience = :experience order by size(e.consultations)")
                     .setParameter("voiceType", voiceType)
                     .setParameter("experience", experience)
                     .getSingleResult();

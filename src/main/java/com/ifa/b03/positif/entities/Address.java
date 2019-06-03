@@ -11,12 +11,8 @@ import javax.persistence.*;
  *
  * @author cthomasset
  */
-@Entity
+@Embeddable
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
     private String address;
     private double longitude;
     private double latitude;
@@ -51,6 +47,13 @@ public class Address {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
-    
-   
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "address='" + address + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                '}';
+    }
 }

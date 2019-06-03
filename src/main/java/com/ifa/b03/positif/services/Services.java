@@ -11,6 +11,7 @@ import com.ifa.b03.positif.entities.*;
 import static com.ifa.b03.positif.entities.PredictionType.*;
 
 import com.ifa.b03.positif.utils.Astro;
+import com.ifa.b03.positif.utils.Message;
 
 import java.io.IOException;
 import java.util.*;
@@ -101,21 +102,35 @@ public class Services {
         return predictions;
     }
 
-    public static void registerClient(Client client) {
+    public static boolean registerClient(Client client) {
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
+        boolean status = false;
 
         try {
+
+            if(PersonDao.isEmailTaken(client.getEmail())){
+                throw new Exception("Email address already taken.");
+            }
+
             ServicesUtils.validateAndGenerateGpsAddress(client.getAddress());
             ServicesUtils.generateAstralProfile(client);
             ClientDao.persist(client);
 
             JpaUtil.validateTransaction();
+
+            Message.envoyerMail("noreply@positif.fr", client.getEmail(), "Enregistrement ok", "Enregistrement correctement effectué.");
+            status = true;
         } catch (Exception e) {
             JpaUtil.cancelTransaction();
+            Message.envoyerMail("noreply@positif.fr", client.getEmail(), "Erreur lors de l'enregistrement", "Enregistrement ne s'est pas correctement effectué.");
+
+            System.out.println(e);
         }
 
         JpaUtil.closeEntityManager();
+
+        return status;
     }
 
 
@@ -127,15 +142,16 @@ public class Services {
         JpaUtil.openTransaction();
 
         Employee employee = EmployeeDao.getEmployeeForConsultation(medium.getExperienceRequired(), medium.getVoiceType());
-
+System.out.println(employee);
         if (employee != null) {
             Consultation consultation = new Consultation(client, medium, employee);
 
             ConsultationDao.persist(consultation);
             JpaUtil.validateTransaction();
+
+            Message.envoyerMail("noreply@positif.fr", employee.getEmail(), "Nouvelle consultation", client.getLastname() + " " + client.getFirstname() + " veut une consultation avec " + medium.getName());
             status = true;
 
-            // TODO: notify employee
         } else {
             JpaUtil.cancelTransaction();
         }

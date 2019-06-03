@@ -18,14 +18,28 @@ public class Medium {
     @Enumerated(EnumType.STRING)
     private VoiceType voiceType;
 
+    @Override
+    public String toString() {
+        return "Medium{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", talent=" + talent +
+                ", description='" + description + '\'' +
+                ", picturePath='" + picturePath + '\'' +
+                ", voiceType=" + voiceType +
+                ", experienceRequired=" + experienceRequired +
+                ", trainig='" + trainig + '\'' +
+                ", speciality='" + speciality + '\'' +
+                ", schoolYear=" + schoolYear +
+                '}';
+    }
+
     @Enumerated(EnumType.STRING)
     private ExperienceType experienceRequired;
 
     private String trainig;
     private String speciality;
     private Integer schoolYear;
-
-    private Long price;
 
     @OneToMany(mappedBy = "medium")
     private List<Consultation> consultations;
@@ -37,13 +51,12 @@ public class Medium {
     public Medium() {
     }
 
-    public Medium(String name, TalentType talent, String description, VoiceType voiceType, ExperienceType experienceRequired, Long price) {
+    public Medium(String name, TalentType talent, String description, VoiceType voiceType, ExperienceType experienceRequired) {
         this.name = name;
         this.talent = talent;
         this.description = description;
         this.voiceType = voiceType;
         this.experienceRequired = experienceRequired;
-        this.price = price;
     }
 
     public void addConsultation(Consultation consultation) {
@@ -54,80 +67,82 @@ public class Medium {
         return name;
     }
 
-    public void setName(String name) {
+    public Medium setName(String name) {
         this.name = name;
+        return this;
     }
 
     public TalentType getTalent() {
         return talent;
+
     }
 
-    public void setTalent(TalentType talent) {
+    public Medium setTalent(TalentType talent) {
         this.talent = talent;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Medium setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getPicturePath() {
         return picturePath;
     }
 
-    public void setPicturePath(String picturePath) {
+    public Medium setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+        return this;
     }
 
     public VoiceType getVoiceType() {
         return voiceType;
     }
 
-    public void setVoiceType(VoiceType voiceType) {
+    public Medium setVoiceType(VoiceType voiceType) {
         this.voiceType = voiceType;
+        return this;
     }
 
     public ExperienceType getExperienceRequired() {
         return experienceRequired;
     }
 
-    public void setExperienceRequired(ExperienceType experienceRequired) {
+    public Medium setExperienceRequired(ExperienceType experienceRequired) {
         this.experienceRequired = experienceRequired;
+        return this;
     }
 
     public String getTrainig() {
         return trainig;
     }
 
-    public void setTrainig(String trainig) {
+    public Medium setTrainig(String trainig) {
         this.trainig = trainig;
+        return this;
     }
 
     public String getSpeciality() {
         return speciality;
     }
 
-    public void setSpeciality(String speciality) {
+    public Medium setSpeciality(String speciality) {
         this.speciality = speciality;
+        return this;
     }
 
     public Integer getSchoolYear() {
         return schoolYear;
     }
 
-    public void setSchoolYear(Integer schoolYear) {
+    public Medium setSchoolYear(Integer schoolYear) {
         this.schoolYear = schoolYear;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
+        return this;
     }
 
     public List<Consultation> getConsultations() {

@@ -15,6 +15,8 @@ import javax.persistence.RollbackException;
  */
 public class JpaUtil {
 
+    public static final boolean doLog = false;
+
     // *************************************************************************************
     // * TODO: IMPORTANT -- Adapter le nom de l'Unité de Persistance (cf. persistence.xml) *
     // *************************************************************************************
@@ -44,6 +46,7 @@ public class JpaUtil {
         }
     };
 
+
     // Méthode pour avoir des messages de Log dans le bon ordre (pause)
     private static void pause(long milliseconds) {
         try {
@@ -55,11 +58,13 @@ public class JpaUtil {
 
     // Méthode pour avoir des messages de Log dans le bon ordre (log)
     private static void log(String message) {
-        System.out.flush();
-        pause(5);
-        System.err.println("[JpaUtil:Log] " + message);
-        System.err.flush();
-        pause(5);
+        if (doLog){
+            System.out.flush();
+            pause(5);
+            System.err.println("[JpaUtil:Log] " + message);
+            System.err.flush();
+            pause(5);
+        }
     }
 
     /**

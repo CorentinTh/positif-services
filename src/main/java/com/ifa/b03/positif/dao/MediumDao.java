@@ -16,6 +16,8 @@ public class MediumDao {
     }
 
     static public List<Medium> getMediums(int pageNumber, int pageSize) {
+        pageNumber = pageNumber < 1 ? 1 : pageNumber;
+
 
         try {
             return (List<Medium>) JpaUtil
@@ -25,6 +27,7 @@ public class MediumDao {
                     .setMaxResults(pageSize)
                     .getResultList();
         } catch (Exception e) {
+            System.err.println(e);
             return null;
         }
     }

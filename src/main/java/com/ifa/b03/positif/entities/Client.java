@@ -60,6 +60,7 @@ public class Client extends Person implements Serializable {
     private String chineseSign;
     private String color;
     private String animal;
+
     private Address address;
     private String phoneNumber;
 
@@ -88,8 +89,16 @@ public class Client extends Person implements Serializable {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-    
-   
-    
-    
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "zodiacSign='" + zodiacSign + '\'' +
+                ", chineseSign='" + chineseSign + '\'' +
+                ", color='" + color + '\'' +
+                ", animal='" + animal + '\'' +
+                ", address=" + address +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                "} " + super.toString();
+    }
 }
