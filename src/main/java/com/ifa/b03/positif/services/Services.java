@@ -109,20 +109,29 @@ public class Services {
         return client;
     }
 
-    public static void initConsultation(Client client, Medium medium) {
+    public static boolean initConsultation(Client client, Medium medium) {
+        boolean status = false;
+
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
 
         Employee employee = EmployeeDao.getEmployeeForConsultation(medium.getExperienceRequired(), medium.getVoiceType());
-        Consultation consultation = new Consultation(client, medium, employee);
 
-        ConsultationDao.persist(consultation);
+        if(employee != null){
+            Consultation consultation = new Consultation(client, medium, employee);
 
-        JpaUtil.validateTransaction();
+            ConsultationDao.persist(consultation);
+            JpaUtil.validateTransaction();
+            status = true;
+
+            // TODO: notify employee
+        }else{
+            JpaUtil.cancelTransaction();
+        }
         JpaUtil.closeEntityManager();
 
-        // Notif => Employé
-        // TODO if employee is null pas créer consultation, renvoyer erreur
+
+        return status;
     }
 
     public static void acceptConsultation(Consultation consultation, List<Prediction> predictions) {
@@ -138,7 +147,7 @@ public class Services {
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
 
-        // Notification client
+        // TODO: notify client
     }
 
     public static void closeConsultation(Consultation consultation, String comment, Date closedAt) {
