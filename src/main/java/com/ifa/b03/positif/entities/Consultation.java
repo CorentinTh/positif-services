@@ -26,6 +26,7 @@ public class Consultation {
     @Temporal(TemporalType.DATE)
     private Date closedAt;
 
+    @Enumerated(EnumType.STRING)
     private ConsultationStateType state;
 
     @ManyToOne

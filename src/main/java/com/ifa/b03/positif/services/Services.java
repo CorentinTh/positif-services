@@ -13,9 +13,7 @@ import static com.ifa.b03.positif.entities.PredictionType.*;
 import com.ifa.b03.positif.utils.Astro;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +21,57 @@ import java.util.logging.Logger;
  * @author cthomasset
  */
 public class Services {
+
+    public static Medium getMedium(Long mediumID){
+        JpaUtil.createEntityManager();
+
+        Medium medium = MediumDao.getMediumByID(mediumID);
+
+        JpaUtil.closeEntityManager();
+
+        return medium;
+    }
+
+    public static List<Medium> getMediums(int pageNumber, int pageSize) {
+        JpaUtil.createEntityManager();
+
+        List<Medium> mediums = MediumDao.getMediums(pageNumber, pageSize);
+
+        JpaUtil.closeEntityManager();
+
+        return mediums;
+    }
+
+    public static Person getPerson(Long personID) {
+        JpaUtil.createEntityManager();
+
+        Person person = PersonDao.getPersonByID(personID);
+
+        JpaUtil.closeEntityManager();
+
+        return person;
+    }
+
+    public static Consultation getConsultation(Long consultationID) {
+        JpaUtil.createEntityManager();
+
+        Consultation consultation = ConsultationDao.getConsultationById(consultationID);
+
+        JpaUtil.closeEntityManager();
+
+        return consultation;
+    }
+
+    public static List<Client> getClients(int pageNumber, int pageSize) {
+        JpaUtil.createEntityManager();
+
+        List<Client> clients = ClientDao.getClients(pageNumber, pageSize);
+
+        JpaUtil.closeEntityManager();
+
+        return clients;
+    }
+
 
     public static boolean checkCredentials(String email, String password) {
         JpaUtil.createEntityManager();
@@ -41,12 +90,12 @@ public class Services {
         try {
             List<String> results = astro.getPredictions(consultation.getClient().getColor(), consultation.getClient().getAnimal(), loveLevel, healthLevel, workLevel);
 
-            predictions.add(new Prediction(LOVE, loveLevel, results.get(0), consultation));
-            predictions.add(new Prediction(HEALTH, healthLevel, results.get(1), consultation));
-            predictions.add(new Prediction(WORK, workLevel, results.get(2), consultation));
+            predictions.add(new Prediction(LOVE, loveLevel, results.get(0)));
+            predictions.add(new Prediction(HEALTH, healthLevel, results.get(1)));
+            predictions.add(new Prediction(WORK, workLevel, results.get(2)));
 
         } catch (IOException ex) {
-            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+            // TODO
         }
 
         return predictions;
@@ -69,35 +118,7 @@ public class Services {
         JpaUtil.closeEntityManager();
     }
 
-    public static List<Medium> getMediums(int pageNumber, int pageSize) {
-        JpaUtil.createEntityManager();
 
-        List<Medium> mediums = MediumDao.getMediums(pageNumber, pageSize);
-
-        JpaUtil.closeEntityManager();
-
-        return mediums;
-    }
-
-    public static List<Client> getClients(int pageNumber, int pageSize) {
-        JpaUtil.createEntityManager();
-
-        List<Client> clients = ClientDao.getClients(pageNumber, pageSize);
-
-        JpaUtil.closeEntityManager();
-
-        return clients;
-    }
-
-    public static Client getInfoClient(Long clientID) {
-        JpaUtil.createEntityManager();
-
-        Client client = ClientDao.getClientById(clientID);
-
-        JpaUtil.closeEntityManager();
-
-        return client;
-    }
 
     public static boolean initConsultation(Client client, Medium medium) {
         boolean status = false;
@@ -123,7 +144,6 @@ public class Services {
 
         return status;
     }
-
 
 
     public static void acceptConsultation(Consultation consultation) {
@@ -155,17 +175,7 @@ public class Services {
         JpaUtil.closeEntityManager();
     }
 
-    public static Consultation getConsultation(Long consultationID){
-        JpaUtil.createEntityManager();
-
-        Consultation consultation = ConsultationDao.getConsultationById(consultationID);
-
-        JpaUtil.closeEntityManager();
-
-        return consultation;
-    }
-
-    public static Consultation getCurrentConsultation(Employee employee){
+    public static Consultation getCurrentConsultation(Employee employee) {
         JpaUtil.createEntityManager();
 
         Consultation consultation = ConsultationDao.getCurrentConsultationByEmployee(employee);
@@ -175,7 +185,7 @@ public class Services {
         return consultation;
     }
 
-    public static List<Consultation> getConsultationByClient(Client client){
+    public static List<Consultation> getConsultationByClient(Client client) {
         JpaUtil.createEntityManager();
 
         List<Consultation> consultations = ConsultationDao.getConsultationsByClient(client);
@@ -185,10 +195,23 @@ public class Services {
         return consultations;
     }
 
+    public static List<Consultation> getCurrentConsultationByClient(Client client) {
+        JpaUtil.createEntityManager();
 
-    public static void setPredictionsForConsultation(Consultation consultation, List<Prediction> predictions){
+        List<Consultation> consultations = ConsultationDao.getCurrentConsultationByClient(client);
+
+        JpaUtil.closeEntityManager();
+
+        return consultations;
+    }
+
+    public static void setPredictionsForConsultation(Consultation consultation, List<Prediction> predictions) {
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
+
+        for (Prediction prediction : predictions) {
+            prediction.setConsultation(consultation);
+        }
 
         consultation.setPredictions(predictions);
 
@@ -199,7 +222,76 @@ public class Services {
         JpaUtil.closeEntityManager();
     }
 
+    public static Map<Medium, Long> getClientCountByMedium(){
+        JpaUtil.createEntityManager();
 
-    // TODO: setPredictions
+        Map<Medium, Long> counts = MediumDao.getClientCountByMedium();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
+    public static Map<Medium, Double> getConsultationTimeAverageByMedium(){
+        JpaUtil.createEntityManager();
+
+        Map<Medium, Double> counts = MediumDao.getConsultationTimeAverageByMedium();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
+    public static Map<Medium, List<Long>> getClientCountByMediumPerDay(){
+        JpaUtil.createEntityManager();
+
+        Map<Medium, List<Long>> counts = MediumDao.getClientCountByMediumPerDay();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
+
+    public static Map<Client, List<Long>> getClientCountByEmployeePerDay(){
+        JpaUtil.createEntityManager();
+
+        Map<Client, List<Long>> counts = EmployeeDao.getClientCountByEmployeePerDay();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
+    public static Map<Client, Long> getClientCountByEmployee(){
+        JpaUtil.createEntityManager();
+
+        Map<Client, Long> counts = EmployeeDao.getClientCountByEmployee();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
+    public static Map<Client, Medium> getFavoriteMediumByEmployee(){
+        JpaUtil.createEntityManager();
+
+        Map<Client, Medium> counts = EmployeeDao.getFavoriteMediumByEmployee();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
+    public static Map<Client, Double> getConsultationTimeAverageByEmployee(){
+        JpaUtil.createEntityManager();
+
+        Map<Client, Double> counts = EmployeeDao.getConsultationTimeAverageByEmployee();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+
 
 }

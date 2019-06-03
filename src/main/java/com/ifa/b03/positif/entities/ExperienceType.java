@@ -10,6 +10,6 @@ package com.ifa.b03.positif.entities;
  * @author cthomasset
  */
 public enum ExperienceType {
-    Junior,
-    Senior
+    JUNIOR,
+    SENIOR
 }

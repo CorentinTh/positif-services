@@ -5,11 +5,10 @@
  */
 package com.ifa.b03.positif.dao;
 
-import com.ifa.b03.positif.entities.Consultation;
-import com.ifa.b03.positif.entities.Employee;
-import com.ifa.b03.positif.entities.ExperienceType;
-import com.ifa.b03.positif.entities.VoiceType;
+import com.ifa.b03.positif.entities.*;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,9 +19,10 @@ public class EmployeeDao {
     static public Employee getEmployeeForConsultation(ExperienceType experience, VoiceType voiceType){
         
         try{
+            // TODO: tester le "<="
             List<Employee> employees = (List<Employee>) JpaUtil
                     .getEntityManager()
-                    .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience = :experience order by size(e.consultations)")
+                    .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience <= :experience order by size(e.consultations)")
                     .setParameter("voiceType", voiceType)
                     .setParameter("experience", experience)
                     .getSingleResult();
@@ -40,5 +40,20 @@ public class EmployeeDao {
         }
         return null;
     }
-    
+
+    public static Map<Client, List<Long>> getClientCountByEmployeePerDay() {
+        return null; // TODO: getClientCountByEmployeePerDay
+    }
+
+    public static Map<Client, Long> getClientCountByEmployee() {
+        return null; // TODO: getClientCountByEmployee
+    }
+
+    public static Map<Client, Medium> getFavoriteMediumByEmployee() {
+        return null; // TODO: getFavoriteMediumByEmployee
+    }
+
+    public static Map<Client, Double> getConsultationTimeAverageByEmployee() {
+        return null; // TODO: getConsultationTimeAverageByEmployee
+    }
 }

@@ -31,4 +31,12 @@ public class PersonDao {
         }
 
     }
+
+    public static Person getPersonByID(Long personID) {
+        try{
+            return JpaUtil.getEntityManager().find(Person.class, personID);
+        }catch (Exception e){
+            return null;
+        }
+    }
 }

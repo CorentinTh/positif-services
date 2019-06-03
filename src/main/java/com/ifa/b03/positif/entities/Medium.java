@@ -2,6 +2,7 @@ package com.ifa.b03.positif.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Medium {
@@ -14,7 +15,10 @@ public class Medium {
     private String description;
     private String picturePath;
 
+    @Enumerated(EnumType.STRING)
     private VoiceType voiceType;
+
+    @Enumerated(EnumType.STRING)
     private ExperienceType experienceRequired;
 
     private String trainig;
@@ -129,5 +133,20 @@ public class Medium {
     public List<Consultation> getConsultations() {
         return consultations;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Medium medium = (Medium) o;
+        return id.equals(medium.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 
 }

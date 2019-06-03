@@ -17,8 +17,8 @@
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
 
-      <property name="eclipselink.jdbc.url" value="jdbc:sqlite:db.sqlite"/>
-      <property name="eclipselink.jdbc.driver" value="org.sqlite.JDBC"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:db.sqlite"/>
+      <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
     </properties>
   </persistence-unit>
 </persistence>

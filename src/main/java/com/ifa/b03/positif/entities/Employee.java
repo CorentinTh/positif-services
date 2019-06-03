@@ -15,7 +15,10 @@ import javax.persistence.*;
  */
 @Entity
 public class Employee extends Person {
+    @Enumerated(EnumType.STRING)
     private VoiceType voiceType;
+
+    @Enumerated(EnumType.STRING)
     private ExperienceType experience;
 
     public Employee() {

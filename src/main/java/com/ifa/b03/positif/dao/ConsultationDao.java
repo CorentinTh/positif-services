@@ -55,4 +55,18 @@ public class ConsultationDao {
             return null;
         }
     }
+
+    public static List<Consultation> getCurrentConsultationByClient(Client client) {
+        try {
+
+            return (List<Consultation>) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select c from Consultation c where c.client.id = :clientID and c.state = :state")
+                    .setParameter("clientID", client.getId())
+                    .setParameter("state", ConsultationStateType.PENDING)
+                    .getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

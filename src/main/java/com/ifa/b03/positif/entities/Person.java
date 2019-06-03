@@ -7,6 +7,7 @@ package com.ifa.b03.positif.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -91,5 +92,17 @@ public class Person implements Serializable { // /!\ User : mot clé réservé p
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id.equals(person.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

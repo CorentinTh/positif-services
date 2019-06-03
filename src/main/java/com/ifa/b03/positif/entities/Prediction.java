@@ -16,7 +16,8 @@ public class Prediction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
+    @Enumerated(EnumType.STRING)
     private PredictionType type;
     private Integer degree;
     private String content;
@@ -24,11 +25,10 @@ public class Prediction {
     @ManyToOne
     private Consultation consultation;
 
-    public Prediction(PredictionType type, Integer degree, String content, Consultation consultation) {
+    public Prediction(PredictionType type, Integer degree, String content) {
         this.type = type;
         this.degree = degree;
         this.content = content;
-        this.consultation = consultation;
     }
 
     protected Prediction() {
