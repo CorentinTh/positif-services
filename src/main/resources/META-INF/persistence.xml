@@ -8,6 +8,7 @@
     <class>com.ifa.b03.positif.entities.Medium</class>
     <class>com.ifa.b03.positif.entities.Employee</class>
     <class>com.ifa.b03.positif.entities.Prediction</class>
+    <class>com.ifa.b03.positif.entities.Address</class>
     <properties>
 <!--      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/positif"/>-->
 <!--      <property name="javax.persistence.jdbc.user" value="B03"/>-->

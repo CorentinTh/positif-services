@@ -24,31 +24,16 @@ import java.util.logging.Logger;
  */
 public class Services {
 
-    private static void generateAstralProfil(Client client) {
-        Astro astro = new Astro();
-        List<String> profil;
-
-        try {
-            profil = astro.getProfil(client.getFirstname(), client.getBirthDate());
-
-            client.setZodiacSign(profil.get(0));
-            client.setChineseSign(profil.get(1));
-            client.setColor(profil.get(2));
-            client.setAnimal(profil.get(3));
-
-        } catch (IOException ex) {
-            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void checkCredentials(String email, String password) {
+    public static boolean checkCredentials(String email, String password) {
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
 
-        // TODO add select user by creds in PersonDao
+        Person person = PersonDao.getPersonByCred(email, password);
 
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
+
+        return person == null;
     }
 
     public static List<Prediction> generatePredictions(Consultation consultation, int loveLevel, int healthLevel, int workLevel) {
@@ -69,17 +54,14 @@ public class Services {
         return predictions;
     }
 
-    private static void validateAndGenerateGpsAddress(Address address) {
-        // TODO
-    }
 
     public static void registerClient(Client client) {
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
 
         try {
-            Services.validateAndGenerateGpsAddress(client.getAddress());
-            Services.generateAstralProfil(client);
+            ServicesUtils.validateAndGenerateGpsAddress(client.getAddress());
+            ServicesUtils.generateAstralProfil(client);
             ClientDao.persist(client);
 
             JpaUtil.validateTransaction();

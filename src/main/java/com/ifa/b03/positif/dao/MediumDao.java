@@ -6,15 +6,28 @@ import java.util.List;
 
 public class MediumDao {
     static public Medium getMediumByID(Long id) {
-        return JpaUtil.getEntityManager().find(Medium.class, id);
+        try {
+            return JpaUtil.getEntityManager().find(Medium.class, id);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     static public List<Medium> getMediums(int pageNumber, int pageSize) {
-        return (List<Medium>) JpaUtil
-                .getEntityManager()
-                .createQuery("select m from Medium m")
-                .setFirstResult((pageNumber - 1) * pageSize)
-                .setMaxResults(pageSize)
-                .getResultList();
+
+        try {
+            return (List<Medium>) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select m from Medium m")
+                    .setFirstResult((pageNumber - 1) * pageSize)
+                    .setMaxResults(pageSize)
+                    .getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void persist(Medium medium) {
+        JpaUtil.getEntityManager().persist(medium);
     }
 }

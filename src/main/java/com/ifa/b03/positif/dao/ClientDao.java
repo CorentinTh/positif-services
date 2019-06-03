@@ -17,9 +17,14 @@ public class ClientDao{
    
     
     public static Client getClientById(Long id){
-        return (Client) JpaUtil
-                .getEntityManager()
-                .find(Client.class, id);
+        try {
+            return (Client) JpaUtil
+                    .getEntityManager()
+                    .find(Client.class, id);
+        }catch (Exception e){
+            return null;
+        }
+
     }
     
     public static void persist(Client client){
@@ -28,11 +33,16 @@ public class ClientDao{
 
 
     public static List<Client> getClients(int pageNumber, int pageSize) {
-        return (List<Client>) JpaUtil
-                .getEntityManager()
-                .createQuery("select c from Client c")
-                .setFirstResult((pageNumber - 1) * pageSize)
-                .setMaxResults(pageSize)
-                .getResultList();
+        try{
+            return (List<Client>) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select c from Client c")
+                    .setFirstResult((pageNumber - 1) * pageSize)
+                    .setMaxResults(pageSize)
+                    .getResultList();
+
+        }catch (Exception e){
+            return null;
+        }
     }
 }

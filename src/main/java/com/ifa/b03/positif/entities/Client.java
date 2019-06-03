@@ -5,6 +5,7 @@
  */
 package com.ifa.b03.positif.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import javax.persistence.*;
  * @author cthomasset
  */
 @Entity
-public class Client extends Person{
+public class Client extends Person implements Serializable {
 
     public Client() {
     }

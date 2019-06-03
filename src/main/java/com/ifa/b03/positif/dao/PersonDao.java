@@ -10,11 +10,25 @@ import com.ifa.b03.positif.entities.Person;
 import com.ifa.b03.positif.entities.VoiceType;
 
 /**
- *
  * @author cthomasset
  */
 public class PersonDao {
-    public static void persist(Person person){
+    public static void persist(Person person) {
         JpaUtil.getEntityManager().persist(person);
+    }
+
+    public static Person getPersonByCred(String email, String password) {
+        try {
+            return (Person) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select p from Person p where p.email = :email and p.password = :password")
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .getSingleResult();
+
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 }

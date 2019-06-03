@@ -19,21 +19,25 @@ public class EmployeeDao {
     
     static public Employee getEmployeeForConsultation(ExperienceType experience, VoiceType voiceType){
         
-        List<Employee> employees = (List<Employee>) JpaUtil
-                .getEntityManager()
-                .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience = :experience order by size(e.consultations)")
-                .setParameter("voiceType", voiceType)
-                .setParameter("experience", experience)
-                .getSingleResult();
+        try{
+            List<Employee> employees = (List<Employee>) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience = :experience order by size(e.consultations)")
+                    .setParameter("voiceType", voiceType)
+                    .setParameter("experience", experience)
+                    .getSingleResult();
 
-        for(Employee e : employees ){
-            Consultation c = e.getConsultations().get(0);
-            
-            if(c == null || c.getClosedAt()!= null){
-                return e;
+            for(Employee e : employees ){
+                Consultation c = e.getConsultations().get(0);
+
+                if(c == null || c.getClosedAt()!= null){
+                    return e;
+                }
             }
+
+        }catch(Exception e){
+            return null;
         }
-        
         return null;
     }
     
