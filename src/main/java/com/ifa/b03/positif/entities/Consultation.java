@@ -26,6 +26,8 @@ public class Consultation {
     @Temporal(TemporalType.DATE)
     private Date closedAt;
 
+    private ConsultationStateType state;
+
     @ManyToOne
     private Medium medium;
     @ManyToOne
@@ -44,16 +46,24 @@ public class Consultation {
         this.predictions = predictions;
     }
 
+    public ConsultationStateType getState() {
+        return state;
+    }
+
+    public void setState(ConsultationStateType state) {
+        this.state = state;
+    }
+
     public Consultation(Client client, Medium medium, Employee employee) {
         this.createdAt = new Date();
         this.medium = medium;
         this.employee = employee;
         this.client = client;
+        this.state = ConsultationStateType.WAITING_VALIDATION;
         
         client.addConsultation(this);
         medium.addConsultation(this);
         employee.addConsultation(this);
-
     }
     
     public Consultation() {

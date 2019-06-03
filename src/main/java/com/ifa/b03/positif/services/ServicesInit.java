@@ -33,7 +33,7 @@ public class ServicesInit {
 //                        const experience = Math.random() > 0.5 ? 'ExperienceType.Senior' : 'ExperienceType.Junior';
 //                        const gender = user.name.gender == 'male' ? 'M' : 'F';
 //
-//                    acc += `PersonDao.persist(new Employee(${voice}, ${experience}, "${user.email}", "${user.name.first}", "${user.name.last}", "${gender}", "${user.login.password}", new Date()));\n`
+//                    acc += `PersonDao.persist(new Employee(${voice}, ${experience}, "${user.email}", "${user.name.first}", "${user.name.last}", "${gender}", "${user.login.password}", Date.from( Instant.parse("${user.dob.date}"))));\n`
 //
 //                    return acc;
 //                    }, ''));

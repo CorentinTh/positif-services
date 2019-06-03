@@ -8,8 +8,6 @@ import com.ifa.b03.positif.utils.GeoTest;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 class ServicesUtils {
 
@@ -24,9 +22,8 @@ class ServicesUtils {
             address.setLatitude(coords.lng);
         }
     }
-
-
-    static void generateAstralProfil(Client client) {
+    
+    static void generateAstralProfile(Client client) {
         Astro astro = new Astro();
         List<String> profil;
 

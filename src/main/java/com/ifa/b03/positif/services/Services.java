@@ -26,14 +26,12 @@ public class Services {
 
     public static boolean checkCredentials(String email, String password) {
         JpaUtil.createEntityManager();
-        JpaUtil.openTransaction();
 
         Person person = PersonDao.getPersonByCred(email, password);
 
-        JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
 
-        return person == null;
+        return person != null;
     }
 
     public static List<Prediction> generatePredictions(Consultation consultation, int loveLevel, int healthLevel, int workLevel) {
@@ -54,14 +52,13 @@ public class Services {
         return predictions;
     }
 
-
     public static void registerClient(Client client) {
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
 
         try {
             ServicesUtils.validateAndGenerateGpsAddress(client.getAddress());
-            ServicesUtils.generateAstralProfil(client);
+            ServicesUtils.generateAstralProfile(client);
             ClientDao.persist(client);
 
             JpaUtil.validateTransaction();
@@ -72,26 +69,21 @@ public class Services {
         JpaUtil.closeEntityManager();
     }
 
-
-    public static List<Medium> listMedium(int pageNumber, int pageSize) {
+    public static List<Medium> getMediums(int pageNumber, int pageSize) {
         JpaUtil.createEntityManager();
-        JpaUtil.openTransaction();
 
         List<Medium> mediums = MediumDao.getMediums(pageNumber, pageSize);
 
-        JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
 
         return mediums;
     }
 
-    public static List<Client> listClients(int pageNumber, int pageSize) {
+    public static List<Client> getClients(int pageNumber, int pageSize) {
         JpaUtil.createEntityManager();
-        JpaUtil.openTransaction();
 
         List<Client> clients = ClientDao.getClients(pageNumber, pageSize);
 
-        JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
 
         return clients;
@@ -99,11 +91,9 @@ public class Services {
 
     public static Client getInfoClient(Long clientID) {
         JpaUtil.createEntityManager();
-        JpaUtil.openTransaction();
 
         Client client = ClientDao.getClientById(clientID);
 
-        JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
 
         return client;
@@ -117,7 +107,7 @@ public class Services {
 
         Employee employee = EmployeeDao.getEmployeeForConsultation(medium.getExperienceRequired(), medium.getVoiceType());
 
-        if(employee != null){
+        if (employee != null) {
             Consultation consultation = new Consultation(client, medium, employee);
 
             ConsultationDao.persist(consultation);
@@ -125,23 +115,24 @@ public class Services {
             status = true;
 
             // TODO: notify employee
-        }else{
+        } else {
             JpaUtil.cancelTransaction();
         }
-        JpaUtil.closeEntityManager();
 
+        JpaUtil.closeEntityManager();
 
         return status;
     }
 
-    public static void acceptConsultation(Consultation consultation, List<Prediction> predictions) {
+
+
+    public static void acceptConsultation(Consultation consultation) {
         JpaUtil.createEntityManager();
         JpaUtil.openTransaction();
 
         consultation.setAnsweredAt(new Date());
-        consultation.setPredictions(predictions);
+        consultation.setState(ConsultationStateType.PENDING);
 
-        PredictionDao.persist(predictions);
         ConsultationDao.persist(consultation);
 
         JpaUtil.validateTransaction();
@@ -156,11 +147,59 @@ public class Services {
 
         consultation.setClosedAt(closedAt);
         consultation.setComment(comment);
+        consultation.setState(ConsultationStateType.CLOSED);
 
         ConsultationDao.persist(consultation);
 
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
     }
+
+    public static Consultation getConsultation(Long consultationID){
+        JpaUtil.createEntityManager();
+
+        Consultation consultation = ConsultationDao.getConsultationById(consultationID);
+
+        JpaUtil.closeEntityManager();
+
+        return consultation;
+    }
+
+    public static Consultation getCurrentConsultation(Employee employee){
+        JpaUtil.createEntityManager();
+
+        Consultation consultation = ConsultationDao.getCurrentConsultationByEmployee(employee);
+
+        JpaUtil.closeEntityManager();
+
+        return consultation;
+    }
+
+    public static List<Consultation> getConsultationByClient(Client client){
+        JpaUtil.createEntityManager();
+
+        List<Consultation> consultations = ConsultationDao.getConsultationsByClient(client);
+
+        JpaUtil.closeEntityManager();
+
+        return consultations;
+    }
+
+
+    public static void setPredictionsForConsultation(Consultation consultation, List<Prediction> predictions){
+        JpaUtil.createEntityManager();
+        JpaUtil.openTransaction();
+
+        consultation.setPredictions(predictions);
+
+        PredictionDao.persist(predictions);
+        ConsultationDao.persist(consultation);
+
+        JpaUtil.validateTransaction();
+        JpaUtil.closeEntityManager();
+    }
+
+
+    // TODO: setPredictions
 
 }
