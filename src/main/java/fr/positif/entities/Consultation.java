@@ -130,5 +130,11 @@ public class Consultation {
         this.client = client;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Consultation{" +
+                "id=" + id +
+                ", state=" + state +
+                '}';
+    }
 }

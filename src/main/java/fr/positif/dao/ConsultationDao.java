@@ -43,18 +43,6 @@ public class ConsultationDao {
         }
     }
 
-    public static List<Consultation> getConsultationsByClient(Client client) {
-        try {
-
-            return (List<Consultation>) JpaUtil
-                    .getEntityManager()
-                    .createQuery("select c from Consultation c where c.client.id = :clientID")
-                    .setParameter("clientID", client.getId())
-                    .getResultList();
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     public static List<Consultation> getCurrentConsultationByClient(Client client) {
         try {
@@ -66,6 +54,34 @@ public class ConsultationDao {
                     .setParameter("state", ConsultationStateType.PENDING)
                     .getResultList();
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void update(Consultation consultation){
+        JpaUtil.getEntityManager().merge(consultation);
+    }
+
+    public static List<Consultation> getConsultations(Client client){
+        try{
+            return (List<Consultation>) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select c from Consultation c where c.client.id = :clientID")
+                    .setParameter("clientID", client.getId())
+                    .getResultList();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    public static List<Consultation> getConsultations(Employee employee){
+        try{
+            return (List<Consultation>) JpaUtil
+                    .getEntityManager()
+                    .createQuery("select c from Consultation c where c.employee.id = :employeeID")
+                    .setParameter("employeeID", employee.getId())
+                    .getResultList();
+        }catch (Exception e){
             return null;
         }
     }

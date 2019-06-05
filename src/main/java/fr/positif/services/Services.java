@@ -137,10 +137,11 @@ public class Services {
         JpaUtil.openTransaction();
 
         Employee employee = EmployeeDao.getEmployeeForConsultation(medium.getExperienceRequired(), medium.getVoiceType());
-System.out.println(employee);
+
         if (employee != null) {
             Consultation consultation = new Consultation(client, medium, employee);
 
+            consultation.setCreatedAt(new Date());
             ConsultationDao.persist(consultation);
             JpaUtil.validateTransaction();
 
@@ -163,13 +164,12 @@ System.out.println(employee);
 
         consultation.setAnsweredAt(new Date());
         consultation.setState(ConsultationStateType.PENDING);
+        ConsultationDao.update(consultation);
 
-        ConsultationDao.persist(consultation);
+        Message.envoyerMail("noreply@positif.fr", consultation.getClient().getEmail(), "Consultation prete", "Votre consultation est prete, appelez le 06 54 23 89 98.");
 
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
-
-        // TODO: notify client
     }
 
     public static void closeConsultation(Consultation consultation, String comment, Date closedAt) {
@@ -179,8 +179,7 @@ System.out.println(employee);
         consultation.setClosedAt(closedAt);
         consultation.setComment(comment);
         consultation.setState(ConsultationStateType.CLOSED);
-
-        ConsultationDao.persist(consultation);
+        ConsultationDao.update(consultation);
 
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();
@@ -196,16 +195,25 @@ System.out.println(employee);
         return consultation;
     }
 
-    public static List<Consultation> getConsultationByClient(Client client) {
+    public static List<Consultation> getConsultations(Client client) {
         JpaUtil.createEntityManager();
 
-        List<Consultation> consultations = ConsultationDao.getConsultationsByClient(client);
+        List<Consultation> consultations = ConsultationDao.getConsultations(client);
 
         JpaUtil.closeEntityManager();
 
         return consultations;
     }
 
+    public static List<Consultation> getConsultations(Employee employee) {
+        JpaUtil.createEntityManager();
+
+        List<Consultation> consultations = ConsultationDao.getConsultations(employee);
+
+        JpaUtil.closeEntityManager();
+
+        return consultations;
+    }
     public static List<Consultation> getCurrentConsultationByClient(Client client) {
         JpaUtil.createEntityManager();
 
@@ -227,7 +235,7 @@ System.out.println(employee);
         consultation.setPredictions(predictions);
 
         PredictionDao.persist(predictions);
-        ConsultationDao.persist(consultation);
+        ConsultationDao.update(consultation);
 
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();

@@ -23,7 +23,9 @@ public class Positif {
 //        Demo.checkClientProfile();
 //        Demo.checkMediumList();
 //        Demo.getMediumInfo();
-        Demo.createConsultation();
+//        Demo.createConsultation();
+//        Demo.acceptConsultation();
+        Demo.closeConsultation();
 
         // --------------> Demo
 

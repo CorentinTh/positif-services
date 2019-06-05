@@ -160,4 +160,52 @@ public class Demo {
         System.out.println(status ? "Demande de consultation envoyé." : "Erreur lors de la demande de consultation.");
     }
 
+    /**
+     * Un employee accepte la demande de consultation émise par le client
+     */
+    public static void acceptConsultation(){
+        // ---------------- Prerequisite
+
+        Demo.createConsultation();
+
+        // ---------------- Input from front end
+
+        Long consultationID = 45L;
+
+        // ---------------- IHM backend
+
+        Consultation consultation = Services.getConsultation(consultationID);
+
+        Services.acceptConsultation(consultation);
+
+        // ---------------- Front end feedback
+
+        System.out.println("\n\nConsultation acceptée. " + consultation);
+    }
+
+    /**
+     * Un employee termine la consultation precedement ouverte
+     */
+    public static void closeConsultation(){
+        // ---------------- Prerequisite
+
+        Demo.acceptConsultation();
+
+        // ---------------- Input from front end
+
+        Long consultationID = 45L;
+        String comment = "La consultation s'est tres bien passé.";
+        String endDate = "2019-05-11T13:15:00.000Z";
+
+        // ---------------- IHM backend
+
+        Consultation consultation = Services.getConsultation(consultationID);
+
+        Services.closeConsultation(consultation, comment, Date.from(Instant.parse(endDate)));
+
+        // ---------------- Front end feedback
+
+        System.out.println("Consultation fermée. " + consultation);
+    }
+
 }
