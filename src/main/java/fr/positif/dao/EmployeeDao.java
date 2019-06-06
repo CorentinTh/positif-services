@@ -7,6 +7,7 @@ package fr.positif.dao;
 
 import fr.positif.entities.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,20 +80,47 @@ public class EmployeeDao {
 //        }
 //        return null;
     }
+    
+    public static Map<Employee, Long> getClientCountByEmployee() {
+        try {
+            final List<Object[]> resultList = JpaUtil
+                    .getEntityManager()
+                    .createQuery("select e, count(distinct cl) from Employee e inner join Consultation c inner join Client cl group by e")
+                    .getResultList();
 
-    public static Map<Client, List<Long>> getClientCountByEmployeePerDay() {
-        return null; // TODO: getClientCountByEmployeePerDay
+            return getEmployeeCountMapFromResultList(resultList);
+        } catch (Exception e) {
+            return null;
+        }
+    } //TODO: Test
+
+    public static Map<Employee, Long> getConsultationCountByEmployee() {
+        try {
+            final List<Object[]> resultList = JpaUtil
+                    .getEntityManager()
+                    .createQuery("select e, count(c) from Employee e inner join Consultation c group by e")
+                    .getResultList();
+
+            return getEmployeeCountMapFromResultList(resultList);
+        } catch (Exception e) {
+            return null;
+        }
+    } //TODO: Test
+
+    private static Map<Employee, Long> getEmployeeCountMapFromResultList(List<Object[]> resultList) {
+        Map<Employee, Long> resultMap = new HashMap<>();
+        for (Object[] result : resultList) {
+            resultMap.put((Employee) result[0], (Long) result[1]);
+        }
+
+        return resultMap;
     }
 
-    public static Map<Client, Long> getClientCountByEmployee() {
-        return null; // TODO: getClientCountByEmployee
+    public static Map<Employee, Medium> getFavoriteMediumByEmployee() {
+        return null; // TODO
     }
 
-    public static Map<Client, Medium> getFavoriteMediumByEmployee() {
-        return null; // TODO: getFavoriteMediumByEmployee
-    }
-
-    public static Map<Client, Double> getConsultationTimeAverageByEmployee() {
-        return null; // TODO: getConsultationTimeAverageByEmployee
+    public static Map<Employee, Double> getConsultationTimeAverageByEmployee() {
+        return null; // TODO
     }
 }
