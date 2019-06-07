@@ -40,45 +40,11 @@ public class EmployeeDao {
                     .setParameter("experience", experience)
                     .getResultList();
 
-            System.out.println(employees);
             return employees.get(0);
-
-//            for (Employee e : employees) {
-//
-//
-//                Consultation c = e.getConsultations().get(0);
-//
-//                if (c == null || c.getClosedAt() != null) {
-//                    return e;
-//                }
-//            }
 
         } catch (Exception e) {
             return null;
         }
-
-//
-//        try{
-//            // TODO: tester le "<="
-//            List<Employee> employees = (List<Employee>) JpaUtil
-//                    .getEntityManager()
-//                    .createQuery("select e from Employee e where e.voiceType = :voiceType and e.experience = :experience order by size(e.consultations)")
-//                    .setParameter("voiceType", voiceType)
-//                    .setParameter("experience", experience)
-//                    .getSingleResult();
-//
-//            for(Employee e : employees ){
-//                Consultation c = e.getConsultations().get(0);
-//
-//                if(c == null || c.getClosedAt()!= null){
-//                    return e;
-//                }
-//            }
-//
-//        }catch(Exception e){
-//            return null;
-//        }
-//        return null;
     }
     
     public static Map<Employee, Long> getClientCountByEmployee() {
@@ -121,6 +87,11 @@ public class EmployeeDao {
     }
 
     public static Map<Employee, Double> getConsultationTimeAverageByEmployee() {
+        return null; // TODO
+    }
+
+
+    public static Map<Employee, List<Long>> getClientCountByEmployeePerDay() {
         return null; // TODO
     }
 }

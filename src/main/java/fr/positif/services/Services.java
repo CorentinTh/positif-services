@@ -272,40 +272,40 @@ public class Services {
     }
 
 
-    public static Map<Client, List<Long>> getClientCountByEmployeePerDay(){
+    public static Map<Employee, List<Long>> getClientCountByEmployeePerDay(){
         JpaUtil.createEntityManager();
 
-        Map<Client, List<Long>> counts = EmployeeDao.getClientCountByEmployeePerDay();
+        Map<Employee, List<Long>> counts = EmployeeDao.getClientCountByEmployeePerDay();
 
         JpaUtil.closeEntityManager();
 
         return counts;
     }
 
-    public static Map<Client, Long> getClientCountByEmployee(){
+    public static Map<Employee, Long> getClientCountByEmployee(){
         JpaUtil.createEntityManager();
 
-        Map<Client, Long> counts = EmployeeDao.getClientCountByEmployee();
+        Map<Employee, Long> counts = EmployeeDao.getClientCountByEmployee();
 
         JpaUtil.closeEntityManager();
 
         return counts;
     }
 
-    public static Map<Client, Medium> getFavoriteMediumByEmployee(){
+    public static Map<Employee, Medium> getFavoriteMediumByEmployee(){
         JpaUtil.createEntityManager();
 
-        Map<Client, Medium> counts = EmployeeDao.getFavoriteMediumByEmployee();
+        Map<Employee, Medium> counts = EmployeeDao.getFavoriteMediumByEmployee();
 
         JpaUtil.closeEntityManager();
 
         return counts;
     }
 
-    public static Map<Client, Double> getConsultationTimeAverageByEmployee(){
+    public static Map<Employee, Double> getConsultationTimeAverageByEmployee(){
         JpaUtil.createEntityManager();
 
-        Map<Client, Double> counts = EmployeeDao.getConsultationTimeAverageByEmployee();
+        Map<Employee, Double> counts = EmployeeDao.getConsultationTimeAverageByEmployee();
 
         JpaUtil.closeEntityManager();
 
