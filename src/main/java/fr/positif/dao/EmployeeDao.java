@@ -51,7 +51,8 @@ public class EmployeeDao {
         try {
             final List<Object[]> resultList = JpaUtil
                     .getEntityManager()
-                    .createQuery("select e, count(distinct cl) from Employee e inner join Consultation c inner join Client cl group by e")
+                    .createQuery("select e, count(distinct c.client) as qtty from Employee e join Consultation c on c.employee = e union select e, 0 as qtty from Employee e where size(e.consultations) = 0")
+//                    .createQuery("select c.employee, count(distinct c.client) from Consultation c group by c.employee")
                     .getResultList();
 
             return getEmployeeCountMapFromResultList(resultList);
@@ -89,7 +90,6 @@ public class EmployeeDao {
     public static Map<Employee, Double> getConsultationTimeAverageByEmployee() {
         return null; // TODO
     }
-
 
     public static Map<Employee, List<Long>> getClientCountByEmployeePerDay() {
         return null; // TODO

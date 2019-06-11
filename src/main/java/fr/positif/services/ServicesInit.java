@@ -8,7 +8,6 @@ package fr.positif.services;
 import fr.positif.dao.JpaUtil;
 import fr.positif.dao.MediumDao;
 import fr.positif.dao.PersonDao;
-import com.ifa.b03.positif.entities.*;
 import fr.positif.entities.*;
 
 import java.time.Instant;
@@ -97,6 +96,9 @@ public class ServicesInit {
         MediumDao.persist(new Medium("Mr M. Histaire-Hyeux", TalentType.ASTROLOGIST, "Avenir, avenir, que nous réserves-tu? N'atendez plus, demandez à me consulter!", VoiceType.FEMININE, ExperienceType.JUNIOR).setTrainig("Insttut des Nouveaux Savoirs Astrologiques").setSchoolYear(2010));
 
         MediumDao.persist(new Medium("Mr Potiron", TalentType.TAROT_READER, "Mes cartes devoilleront votre avenir!", VoiceType.MASCULINE, ExperienceType.JUNIOR));
+        MediumDao.persist(new Medium("Mr Pierre Edouard Pidou", TalentType.TAROT_READER, "Je vous prédirai votre chemin optimal", VoiceType.MASCULINE, ExperienceType.JUNIOR));
+//        MediumDao.persist(new Medium("Mme Loupicka", TalentType.ASTROLOGIST, "", VoiceType.FEMININE, ExperienceType.SENIOR));
+//        MediumDao.persist(new Medium("Professeur Soko", TalentType.FORTUNE_TELLER, "Grand voyant médium", VoiceType.MASCULINE, ExperienceType.SENIOR));
 
         JpaUtil.validateTransaction();
         JpaUtil.closeEntityManager();

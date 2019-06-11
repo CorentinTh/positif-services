@@ -3,9 +3,12 @@ package fr.positif;
 import fr.positif.entities.*;
 import fr.positif.services.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Demo {
 
@@ -16,6 +19,9 @@ public class Demo {
 
         // ---------------- Input from front end
 
+        System.out.println(" >> ENREGISTREMENT CLIENT");
+        System.out.println("------ Inputs from IHM ------");
+
         String firstname = "John",
                 lastname = "Doe",
                 phoneNumber = "06 25 25 65 65",
@@ -25,6 +31,16 @@ public class Demo {
                 password = "pass",
                 dob = "1997-05-11T22:00:00.000Z";
 
+        System.out.println("firstname: " + firstname);
+        System.out.println("lastname: " + lastname);
+        System.out.println("phoneNumber: " + phoneNumber);
+        System.out.println("email: " + email);
+        System.out.println("gender: " + gender);
+        System.out.println("address: " + address);
+        System.out.println("password: " + password);
+        System.out.println("dob: " + dob);
+
+
         // ---------------- IHM backend
 
         Client client = new Client(new Address(address), phoneNumber, email, lastname, firstname, gender, password, Date.from(Instant.parse(dob)));
@@ -33,8 +49,12 @@ public class Demo {
 
         // ---------------- Front end feedback
 
+        System.out.println("\n\n------ Output to IHM ------");
+
         System.out.println(status ? "Enregistrement ok" : "Enregistrement pas ok");
 
+
+        try{new BufferedReader(new InputStreamReader( System.in)).readLine();} catch (Exception e){}
     }
 
     /**
@@ -63,6 +83,52 @@ public class Demo {
 
         System.out.println(status ? "Enregistrement ok" : "Enregistrement pas ok");
 
+    }
+
+    /**
+     * A client is able to login with is credentials
+     */
+    public static void loginClientOk(){
+
+        // ---------------- Prerequisite
+
+        Demo.registerClientOk();
+
+        // ---------------- Input from front end
+
+        String email = "john.doe@carameil.fr",
+                password = "pass";
+
+        // ---------------- IHM backend
+
+        boolean status = Services.checkCredentials(email, password);
+
+        // ---------------- Front end feedback
+
+        System.out.println(status ? "Login ok" : "Login pas ok");
+    }
+
+    /**
+     * A client is able to login with is credentials
+     */
+    public static void loginClientFailed(){
+
+        // ---------------- Prerequisite
+
+        Demo.registerClientOk();
+
+        // ---------------- Input from front end
+
+        String email = "john.doe@carameil.fr",
+                password = "paszefzsfqsdfqfzqfzqes";
+
+        // ---------------- IHM backend
+
+        boolean status = Services.checkCredentials(email, password);
+
+        // ---------------- Front end feedback
+
+        System.out.println(status ? "Login ok" : "Login pas ok");
     }
 
     /**
@@ -105,6 +171,7 @@ public class Demo {
 
         // ---------------- Front end feedback
 
+
         System.out.println(list);
 
     }
@@ -144,58 +211,84 @@ public class Demo {
 
         // ---------------- Input from front end
 
+        System.out.println("\n\n >> CREATION CONSULTATION");
+        System.out.println("------ Inputs from IHM ------");
+
         Long mediumID = 2L;
         Long clientID = 1L; // Ou stockage en session
+
+        System.out.println("mediumID: " + mediumID);
+        System.out.println("clientID: " + clientID);
 
         // ---------------- IHM backend
 
         Medium medium = Services.getMedium(mediumID);
         Client client = (Client) Services.getPerson(clientID);
 
-
         boolean status = Services.initConsultation(client, medium);
 
         // ---------------- Front end feedback
 
+        System.out.println("------ Output to IHM ------");
+
+        System.out.println(medium);
+
         System.out.println(status ? "Demande de consultation envoyé." : "Erreur lors de la demande de consultation.");
+        try{new BufferedReader(new InputStreamReader( System.in)).readLine();} catch (Exception e){}
     }
 
     /**
      * Un employee accepte la demande de consultation émise par le client
      */
     public static void acceptConsultation(){
+
         // ---------------- Prerequisite
 
         Demo.createConsultation();
 
         // ---------------- Input from front end
 
-        Long consultationID = 45L;
+        System.out.println("\n\n >> ACCEPT CONSULTATION");
+        System.out.println("------ Inputs from IHM ------");
+
+        Long consultationID = 46L;
+
+        System.out.println("consultationID: " + consultationID);
 
         // ---------------- IHM backend
 
         Consultation consultation = Services.getConsultation(consultationID);
-
         Services.acceptConsultation(consultation);
 
         // ---------------- Front end feedback
 
+        System.out.println("------ Output to IHM ------");
+
         System.out.println("\n\nConsultation acceptée. " + consultation);
+        try{new BufferedReader(new InputStreamReader( System.in)).readLine();} catch (Exception e){}
     }
 
     /**
      * Un employee termine la consultation precedement ouverte
      */
     public static void closeConsultation(){
+
         // ---------------- Prerequisite
 
         Demo.acceptConsultation();
 
         // ---------------- Input from front end
 
-        Long consultationID = 45L;
+        System.out.println("\n\n >> CLOSE CONSULTATION");
+        System.out.println("------ Inputs from IHM ------");
+
+        Long consultationID = 46L;
         String comment = "La consultation s'est tres bien passé.";
         String endDate = "2019-05-11T13:15:00.000Z";
+
+        System.out.println("consultationID: " + consultationID);
+        System.out.println("comment: " + comment);
+        System.out.println("endDate: " + endDate);
 
         // ---------------- IHM backend
 
@@ -205,7 +298,69 @@ public class Demo {
 
         // ---------------- Front end feedback
 
+        System.out.println("------ Output to IHM ------");
+
         System.out.println("Consultation fermée. " + consultation);
+        try{new BufferedReader(new InputStreamReader( System.in)).readLine();} catch (Exception e){}
     }
+
+    public static void getHistoriqueClient(){
+
+        // ---------------- Prerequisite
+
+        Demo.closeConsultation();
+
+        System.out.println("\n\n >> GET HISTORIQUE");
+
+        // ---------------- Input from front end
+
+        System.out.println("------ Inputs from IHM ------");
+
+        Long clientID = 1L; // Ou stockage en session
+        System.out.println("clientID: " + clientID);
+
+        // ---------------- IHM backend
+
+        Client client = (Client) Services.getPerson(clientID);
+        List<Consultation> consultations = Services.getConsultations(client);
+
+        // ---------------- Front end feedback
+
+        System.out.println("------ Output to IHM ------");
+
+        System.out.println(consultations);
+
+        try{new BufferedReader(new InputStreamReader( System.in)).readLine();} catch (Exception e){}
+    }
+
+    /**
+     *
+     */
+    public static void getStatistics(){
+
+        // ---------------- Input from front end
+
+
+        Demo.getHistoriqueClient();
+
+        // ---------------- IHM backend
+        System.out.println("\n\n >> STATISTICS");
+
+        Map<Employee, Long> counts = Services.getClientCountByEmployee();
+
+        // ---------------- Front end feedback
+
+        System.out.println("------ Output to IHM ------");
+
+
+        System.out.println("Length: " + counts.size());
+
+        for (Map.Entry<Employee, Long> entry : counts.entrySet()) {
+            System.out.println(entry.getKey().getFirstname() + " : " + entry.getValue().toString());
+        }
+
+    }
+
+
 
 }

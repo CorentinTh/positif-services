@@ -6,6 +6,11 @@
 package fr.positif;
 
 import fr.positif.dao.JpaUtil;
+import fr.positif.entities.Medium;
+import fr.positif.services.Services;
+import fr.positif.services.ServicesInit;
+
+import java.util.List;
 
 /**
  * @author cthomasset
@@ -18,14 +23,31 @@ public class Positif {
 
         // --------------< Demo
 
+        ServicesInit.insertMediums();
+
 //        Demo.registerClientOk();
 //        Demo.registerClientFailed();
+//        Demo.loginClientOk();
+//        Demo.loginClientFailed();
 //        Demo.checkClientProfile();
 //        Demo.checkMediumList();
 //        Demo.getMediumInfo();
 //        Demo.createConsultation();
 //        Demo.acceptConsultation();
-        Demo.closeConsultation();
+//        Demo.closeConsultation();
+//        Demo.getStatistics();
+
+
+        List<Medium> mediums = Services.getMediums(1, 1000);
+
+        for (Medium m : mediums){
+            System.out.println("{" +
+                    "id: " + m.getId() + ", " +
+                    "name: \"" + m.getName() + "\", " +
+                    "talent: \"" + m.getTalent() + "\", " +
+                    "description: \"" + m.getDescription() + "\" " +
+                    "},");
+        }
 
         // --------------> Demo
 

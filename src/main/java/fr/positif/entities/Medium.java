@@ -12,7 +12,10 @@ public class Medium {
 
     @Column(unique = true)
     private String name;
+
+    @Enumerated(EnumType.STRING)
     private TalentType talent;
+
     private String description;
     private String picturePath;
 
