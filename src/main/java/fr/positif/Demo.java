@@ -101,11 +101,11 @@ public class Demo {
 
         // ---------------- IHM backend
 
-        boolean status = Services.checkCredentials(email, password);
+        Person person = Services.checkCredentials(email, password);
 
         // ---------------- Front end feedback
 
-        System.out.println(status ? "Login ok" : "Login pas ok");
+        System.out.println(person != null ? "Login ok" : "Login pas ok");
     }
 
     /**
@@ -124,11 +124,11 @@ public class Demo {
 
         // ---------------- IHM backend
 
-        boolean status = Services.checkCredentials(email, password);
+        Person person = Services.checkCredentials(email, password);
 
         // ---------------- Front end feedback
 
-        System.out.println(status ? "Login ok" : "Login pas ok");
+        System.out.println(person != null ? "Login ok" : "Login pas ok");
     }
 
     /**

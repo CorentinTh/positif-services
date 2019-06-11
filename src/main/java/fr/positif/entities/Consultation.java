@@ -17,13 +17,13 @@ public class Consultation {
     
     private String comment;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
    
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date answeredAt;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date closedAt;
 
     @Enumerated(EnumType.STRING)

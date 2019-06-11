@@ -69,14 +69,14 @@ public class Services {
     }
 
 
-    public static boolean checkCredentials(String email, String password) {
+    public static Person checkCredentials(String email, String password) {
         JpaUtil.createEntityManager();
 
         Person person = PersonDao.getPersonByCred(email, password);
 
         JpaUtil.closeEntityManager();
 
-        return person != null;
+        return person;
     }
 
     public static List<Prediction> generatePredictions(Consultation consultation, int loveLevel, int healthLevel, int workLevel) {
