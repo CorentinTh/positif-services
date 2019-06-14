@@ -12,9 +12,12 @@ import java.util.List;
 class ServicesUtils {
 
     static void validateAndGenerateGpsAddress(Address address) throws Exception {
+        
+        //Todo: Fix
+        //LatLng coords = GeoTest.getLatLng(address.getAddress());
 
-        LatLng coords = GeoTest.getLatLng(address.getAddress());
-
+        LatLng coords = new LatLng(0.5, 0.5);
+        
         if (coords == null) {
             throw new Exception("Invalid address. Can't find coordinates.");
         } else {

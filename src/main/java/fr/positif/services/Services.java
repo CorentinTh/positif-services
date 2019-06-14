@@ -195,7 +195,8 @@ public class Services {
         return consultation;
     }
 
-    public static List<Consultation> getConsultations(Client client) {
+    // TODO: Implement pagination
+    public static List<Consultation> getConsultations(Integer pageNumber, Integer pageSize, Client client) {
         JpaUtil.createEntityManager();
 
         List<Consultation> consultations = ConsultationDao.getConsultations(client);
@@ -205,7 +206,8 @@ public class Services {
         return consultations;
     }
 
-    public static List<Consultation> getConsultations(Employee employee) {
+    // TODO: Implement pagination
+    public static List<Consultation> getConsultations(Integer pageNumber, Integer pageSize, Employee employee) {
         JpaUtil.createEntityManager();
 
         List<Consultation> consultations = ConsultationDao.getConsultations(employee);

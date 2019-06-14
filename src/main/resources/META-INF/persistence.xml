@@ -10,17 +10,14 @@
     <class>fr.positif.entities.Prediction</class>
     <class>fr.positif.entities.Address</class>
     <properties>
-<!--      <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:C:/Users/cthomasset/IdeaProjects/posit-if-back/db/h2.db" />
+      <!--      <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:C:/Users/cthomasset/IdeaProjects/posit-if-back/db/h2.db" />
           <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
           <property name="javax.persistence.schema-generation.database.action" value="create"/>-->
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/positif"/>
       <property name="javax.persistence.jdbc.user" value="B03"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="B03"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

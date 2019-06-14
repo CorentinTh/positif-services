@@ -322,13 +322,13 @@ public class Demo {
         // ---------------- IHM backend
 
         Client client = (Client) Services.getPerson(clientID);
-        List<Consultation> consultations = Services.getConsultations(client);
+        //List<Consultation> consultations = Services.getConsultations(client);
 
         // ---------------- Front end feedback
 
         System.out.println("------ Output to IHM ------");
 
-        System.out.println(consultations);
+        //System.out.println(consultations);
 
         try{new BufferedReader(new InputStreamReader( System.in)).readLine();} catch (Exception e){}
     }
