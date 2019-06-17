@@ -33,9 +33,10 @@ public class ConsultationDao {
         try {
             return (Consultation) JpaUtil
                     .getEntityManager()
-                    .createQuery("select c from Consultation c where c.employee.id = :employeeID AND c.state = :state")
+                    .createQuery("select c from Consultation c where c.employee.id = :employeeID AND (c.state = :state1 OR c.state = :state2)")
                     .setParameter("employeeID", employee.getId())
-                    .setParameter("state", ConsultationStateType.PENDING)
+                    .setParameter("state1", ConsultationStateType.PENDING)
+                    .setParameter("state2", ConsultationStateType.WAITING_VALIDATION)
                     .getSingleResult();
 
         } catch (Exception e) {

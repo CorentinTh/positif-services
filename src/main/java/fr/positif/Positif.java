@@ -20,10 +20,12 @@ public class Positif {
 
         JpaUtil.init();
         System.out.println("\n\n\n");
+        
+        Services.getConsultationCountPerDay();
 
         // --------------< Demo
 
-        ServicesInit.insertMediums();
+        // ServicesInit.insertMediums();
 
 //        Demo.registerClientOk();
 //        Demo.registerClientFailed();

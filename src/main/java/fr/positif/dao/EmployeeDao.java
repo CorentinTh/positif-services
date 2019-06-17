@@ -51,8 +51,7 @@ public class EmployeeDao {
         try {
             final List<Object[]> resultList = JpaUtil
                     .getEntityManager()
-                    .createQuery("select e, count(distinct c.client) as qtty from Employee e join Consultation c on c.employee = e union select e, 0 as qtty from Employee e where size(e.consultations) = 0")
-//                    .createQuery("select c.employee, count(distinct c.client) from Consultation c group by c.employee")
+                    .createQuery("select c.employee, count(distinct c.client) as qtty from Consultation c group by c.employee union select e, 0 as qtty from Employee e where size(e.consultations) = 0")
                     .getResultList();
 
             return getEmployeeCountMapFromResultList(resultList);
@@ -93,5 +92,42 @@ public class EmployeeDao {
 
     public static Map<Employee, List<Long>> getClientCountByEmployeePerDay() {
         return null; // TODO
+    }
+
+    public static Map<Integer, Long> getConsultationCountPerDay() {
+         try {
+            final List<Object[]> resultList = JpaUtil
+                    .getEntityManager()
+                    .createQuery("select EXTRACT(day FROM c.createdAt) day, count(c) from Consultation c group by day")
+                    .getResultList();
+
+            Map<Integer, Long> resultMap = new HashMap<>();
+            resultList.forEach((result) -> {
+                resultMap.put((Integer) result[0], (Long) result[1]);
+             });
+            return resultMap;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Map<ConsultationStateType, Long> getConsultationCountByStatus() {
+                 try {
+            final List<Object[]> resultList = JpaUtil
+                    .getEntityManager()
+                    .createQuery("select c.state, count(c) from Consultation c group by c.state")
+                    .getResultList();
+
+            Map<ConsultationStateType, Long> resultMap = new HashMap<>();
+            for (Object[] result : resultList) {
+                resultMap.put((ConsultationStateType) result[0], (Long) result[1]);
+            }
+            return resultMap;
+            
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

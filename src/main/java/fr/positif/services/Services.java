@@ -274,15 +274,26 @@ public class Services {
     }
 
 
-    public static Map<Employee, List<Long>> getClientCountByEmployeePerDay(){
+    public static Map<Integer, Long> getConsultationCountPerDay(){
         JpaUtil.createEntityManager();
 
-        Map<Employee, List<Long>> counts = EmployeeDao.getClientCountByEmployeePerDay();
+        Map<Integer, Long> counts = EmployeeDao.getConsultationCountPerDay();
 
         JpaUtil.closeEntityManager();
 
         return counts;
     }
+
+    public static Map<ConsultationStateType, Long> getConsultationCountByStatus(){
+        JpaUtil.createEntityManager();
+
+        Map<ConsultationStateType, Long> counts = EmployeeDao.getConsultationCountByStatus();
+
+        JpaUtil.closeEntityManager();
+
+        return counts;
+    }
+    
 
     public static Map<Employee, Long> getClientCountByEmployee(){
         JpaUtil.createEntityManager();
@@ -312,6 +323,10 @@ public class Services {
         JpaUtil.closeEntityManager();
 
         return counts;
+    }
+
+    public static Map<Employee, Long> getConsultationCountByEmployee() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 
