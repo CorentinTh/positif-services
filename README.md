@@ -1,4 +1,4 @@
-# positif-services
+# POSIT'IF SERVICES
 School project @INSA-Lyon.
 
 ## What is it ?
